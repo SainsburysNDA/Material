@@ -127,7 +127,7 @@ public class MaterialCollectionViewLayout : UICollectionViewLayout {
 		
 		var indexPath: NSIndexPath?
 		
-		for var i: Int = 0, l: Int = items.count - 1; i <= l; ++i {
+		for var i: Int = 0, l: Int = items.count - 1; i <= l; i += 1 {
 			let item: MaterialDataSourceItem = items[i]
 			indexPath = NSIndexPath(forItem: i, inSection: 0)
 			layoutItems.append((layoutAttributesForItemAtIndexPath(indexPath!)!, indexPath!))

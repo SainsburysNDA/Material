@@ -128,7 +128,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 			if tapToFocusEnabled {
 				tapToResetEnabled = true
 				prepareFocusLayer()
-				prepareTapGesture(&tapToFocusGesture, numberOfTapsRequired: 1, numberOfTouchesRequired: 1, selector: "handleTapToFocusGesture:")
+				prepareTapGesture(&tapToFocusGesture, numberOfTapsRequired: 1, numberOfTouchesRequired: 1, selector: #selector(CaptureView.handleTapToFocusGesture(_:)))
 				if let v: UITapGestureRecognizer = tapToExposeGesture {
 					tapToFocusGesture!.requireGestureRecognizerToFail(v)
 				}
@@ -148,7 +148,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 			if tapToExposeEnabled {
 				tapToResetEnabled = true
 				prepareExposureLayer()
-				prepareTapGesture(&tapToExposeGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 1, selector: "handleTapToExposeGesture:")
+				prepareTapGesture(&tapToExposeGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 1, selector: #selector(CaptureView.handleTapToExposeGesture(_:)))
 				if let v: UITapGestureRecognizer = tapToFocusGesture {
 					v.requireGestureRecognizerToFail(tapToExposeGesture!)
 				}
@@ -167,7 +167,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 		didSet {
 			if tapToResetEnabled {
 				prepareResetLayer()
-				prepareTapGesture(&tapToResetGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 2, selector: "handleTapToResetGesture:")
+				prepareTapGesture(&tapToResetGesture, numberOfTapsRequired: 2, numberOfTouchesRequired: 2, selector: #selector(CaptureView.handleTapToResetGesture(_:)))
 				if let v: UITapGestureRecognizer = tapToFocusGesture {
 					v.requireGestureRecognizerToFail(tapToResetGesture!)
 				}
@@ -231,7 +231,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	public var cameraButton: UIButton? {
 		didSet {
 			if let v: UIButton = cameraButton {
-				v.addTarget(self, action: "handleCameraButton:", forControlEvents: .TouchUpInside)
+				v.addTarget(self, action: #selector(CaptureView.handleCameraButton(_:)), forControlEvents: .TouchUpInside)
 			}
 			reloadView()
 		}
@@ -243,7 +243,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	public var captureButton: UIButton? {
 		didSet {
 			if let v: UIButton = captureButton {
-				v.addTarget(self, action: "handleCaptureButton:", forControlEvents: .TouchUpInside)
+				v.addTarget(self, action: #selector(CaptureView.handleCaptureButton(_:)), forControlEvents: .TouchUpInside)
 			}
 			reloadView()
 		}
@@ -256,7 +256,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	public var videoButton: UIButton? {
 		didSet {
 			if let v: UIButton = videoButton {
-				v.addTarget(self, action: "handleVideoButton:", forControlEvents: .TouchUpInside)
+				v.addTarget(self, action: #selector(CaptureView.handleVideoButton(_:)), forControlEvents: .TouchUpInside)
 			}
 			reloadView()
 		}
@@ -268,7 +268,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	public var switchCamerasButton: UIButton? {
 		didSet {
 			if let v: UIButton = switchCamerasButton {
-				v.addTarget(self, action: "handleSwitchCamerasButton:", forControlEvents: .TouchUpInside)
+				v.addTarget(self, action: #selector(CaptureView.handleSwitchCamerasButton(_:)), forControlEvents: .TouchUpInside)
 			}
 		}
 	}
@@ -279,7 +279,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	public var flashButton: UIButton? {
 		didSet {
 			if let v: UIButton = flashButton {
-				v.addTarget(self, action: "handleFlashButton:", forControlEvents: .TouchUpInside)
+				v.addTarget(self, action: #selector(CaptureView.handleFlashButton(_:)), forControlEvents: .TouchUpInside)
 			}
 		}
 	}
@@ -354,7 +354,7 @@ public class CaptureView : MaterialView, UIGestureRecognizerDelegate {
 	*/
 	internal func startTimer() {
 		timer?.invalidate()
-		timer = NSTimer(timeInterval: 0.5, target: self, selector: "updateTimer", userInfo: nil, repeats: true)
+		timer = NSTimer(timeInterval: 0.5, target: self, selector: #selector(CaptureView.updateTimer), userInfo: nil, repeats: true)
 		NSRunLoop.mainRunLoop().addTimer(timer!, forMode: NSRunLoopCommonModes)
 		(delegate as? CaptureViewDelegate)?.captureViewDidStartRecordTimer?(self)
 	}

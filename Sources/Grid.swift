@@ -180,7 +180,7 @@ public class Grid {
 			let gc: Int = axis.inherited ? columns : axis.columns
 			let gr: Int = axis.inherited ? rows : axis.rows
 			var n: Int = 0
-			for var i: Int = 0, l: Int = v.count - 1; i <= l; ++i {
+			for var i: Int = 0, l: Int = v.count - 1; i <= l; i += 1 {
 				let view: UIView = v[i]
 				if let sv: UIView = view.superview {
 					sv.layoutIfNeeded()

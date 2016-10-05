@@ -383,10 +383,10 @@ public class MaterialSwitch : UIControl {
 	/// Prepares the button.
 	private func prepareButton() {
 		button.pulseColor = nil
-		button.addTarget(self, action: "handleTouchUpOutsideOrCanceled:event:", forControlEvents: .TouchUpOutside)
-		button.addTarget(self, action: "handleTouchUpInside", forControlEvents: .TouchUpInside)
-		button.addTarget(self, action: "handleTouchDragInside:event:", forControlEvents: .TouchDragInside)
-		button.addTarget(self, action: "handleTouchUpOutsideOrCanceled:event:", forControlEvents: .TouchCancel)
+		button.addTarget(self, action: #selector(MaterialSwitch.handleTouchUpOutsideOrCanceled(_:event:)), forControlEvents: .TouchUpOutside)
+		button.addTarget(self, action: #selector(MaterialSwitch.handleTouchUpInside), forControlEvents: .TouchUpInside)
+		button.addTarget(self, action: #selector(MaterialSwitch.handleTouchDragInside(_:event:)), forControlEvents: .TouchDragInside)
+		button.addTarget(self, action: #selector(MaterialSwitch.handleTouchUpOutsideOrCanceled(_:event:)), forControlEvents: .TouchCancel)
 		addSubview(button)
 	}
 	

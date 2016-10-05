@@ -114,7 +114,7 @@ public class MaterialPulseView : MaterialView {
 	- Parameter touches: A set of UITouch objects.
 	- Parameter event: A UIEvent object.
 	*/
-	public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+	public override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
 		MaterialAnimation.shrinkAnimation(layer, width: width, duration: MaterialAnimation.pulseDuration(width), pulseLayer: pulseLayer)
 	}

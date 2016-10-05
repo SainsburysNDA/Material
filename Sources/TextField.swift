@@ -33,7 +33,7 @@ import UIKit
 public protocol TextFieldDelegate : UITextFieldDelegate {}
 
 @IBDesignable
-public class TextField : UITextField {
+public class TextField : UITextField, CAAnimationDelegate {
 	/**
 	This property is the same as clipsToBounds. It crops any of the view's
 	contents from bleeding past the view's frame.
@@ -282,7 +282,7 @@ public class TextField : UITextField {
 				clearButtonMode = .Never
 				rightViewMode = .WhileEditing
 				v.contentEdgeInsets = UIEdgeInsetsZero
-				v.addTarget(self, action: "handleClearButton", forControlEvents: .TouchUpInside)
+				v.addTarget(self, action: #selector(TextField.handleClearButton), forControlEvents: .TouchUpInside)
 			} else {
 				clearButtonMode = .WhileEditing
 				rightViewMode = .Never
@@ -457,7 +457,7 @@ public class TextField : UITextField {
 	public func animate(animation: CAAnimation) {
 		animation.delegate = self
 		if let a: CABasicAnimation = animation as? CABasicAnimation {
-			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer() as! CALayer).valueForKeyPath(a.keyPath!)
+			a.fromValue = (nil == layer.presentationLayer() ? layer : layer.presentationLayer()!).valueForKeyPath(a.keyPath!)
 		}
 		if let a: CAPropertyAnimation = animation as? CAPropertyAnimation {
 			layer.addAnimation(a, forKey: a.keyPath!)
@@ -473,7 +473,7 @@ public class TextField : UITextField {
 	running an animation.
 	- Parameter anim: The currently running CAAnimation instance.
 	*/
-	public override func animationDidStart(anim: CAAnimation) {
+	public func animationDidStart(anim: CAAnimation) {
 		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
 	}
 	
@@ -485,7 +485,7 @@ public class TextField : UITextField {
 	because it was completed or interrupted. True if completed, false
 	if interrupted.
 	*/
-	public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+	public func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
 				if let v: AnyObject = b.toValue {
@@ -605,9 +605,9 @@ public class TextField : UITextField {
 			} else {
 				v.alpha = 0
 			}
-			addTarget(self, action: "textFieldDidBegin", forControlEvents: .EditingDidBegin)
-			addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
-			addTarget(self, action: "textFieldDidEnd", forControlEvents: .EditingDidEnd)
+			addTarget(self, action: #selector(TextField.textFieldDidBegin), forControlEvents: .EditingDidBegin)
+			addTarget(self, action: #selector(TextField.textFieldDidChange), forControlEvents: .EditingChanged)
+			addTarget(self, action: #selector(TextField.textFieldDidEnd), forControlEvents: .EditingDidEnd)
 		}
 	}
 	
@@ -622,11 +622,11 @@ public class TextField : UITextField {
 				showDetailLabel()
 			}
 			if nil == titleLabel {
-				addTarget(self, action: "textFieldDidBegin", forControlEvents: .EditingDidBegin)
-				addTarget(self, action: "textFieldDidChange", forControlEvents: .EditingChanged)
-				addTarget(self, action: "textFieldDidEnd", forControlEvents: .EditingDidEnd)
+				addTarget(self, action: #selector(TextField.textFieldDidBegin), forControlEvents: .EditingDidBegin)
+				addTarget(self, action: #selector(TextField.textFieldDidChange), forControlEvents: .EditingChanged)
+				addTarget(self, action: #selector(TextField.textFieldDidEnd), forControlEvents: .EditingDidEnd)
 			}
-			addTarget(self, action: "textFieldValueChanged", forControlEvents: .ValueChanged)
+			addTarget(self, action: #selector(TextField.textFieldValueChanged), forControlEvents: .ValueChanged)
 		}
 	}
 	

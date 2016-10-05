@@ -805,13 +805,13 @@ public class SideNavigationController : UIViewController, UIGestureRecognizerDel
 	*/
 	private func prepareGestures() {
 		if nil == panGesture {
-			panGesture = UIPanGestureRecognizer(target: self, action: "handlePanGesture:")
+			panGesture = UIPanGestureRecognizer(target: self, action: #selector(SideNavigationController.handlePanGesture(_:)))
 			panGesture!.delegate = self
 			view.addGestureRecognizer(panGesture!)
 		}
 		
 		if nil == tapGesture {
-			tapGesture = UITapGestureRecognizer(target: self, action: "handleTapGesture:")
+			tapGesture = UITapGestureRecognizer(target: self, action: #selector(SideNavigationController.handleTapGesture(_:)))
 			tapGesture!.delegate = self
 			tapGesture!.cancelsTouchesInView = false
 			view.addGestureRecognizer(tapGesture!)

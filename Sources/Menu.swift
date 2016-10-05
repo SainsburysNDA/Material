@@ -166,7 +166,7 @@ public class Menu {
 	private func openUpAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
 		if let v: Array<UIView> = views {
 			var base: UIView?
-			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+			for var i: Int = 1, l: Int = v.count; i < l; i += 1 {
 				if nil == base {
 					base = v[0]
 				}
@@ -203,7 +203,7 @@ public class Menu {
 	*/
 	public func closeUpAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
 		if let v: Array<UIView> = views {
-			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+			for var i: Int = 1, l: Int = v.count; i < l; i += 1 {
 				let view: UIView = v[i]
 				
 				UIView.animateWithDuration(Double(i) * duration,
@@ -238,7 +238,7 @@ public class Menu {
 	private func openDownAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
 		if let v: Array<UIView> = views {
 			var base: UIView?
-			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+			for var i: Int = 1, l: Int = v.count; i < l; i += 1 {
 				if nil == base {
 					base = v[0]
 				}
@@ -277,7 +277,7 @@ public class Menu {
 	*/
 	public func closeDownAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
 		if let v: Array<UIView> = views {
-			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+			for var i: Int = 1, l: Int = v.count; i < l; i += 1 {
 				let view: UIView = v[i]
 				
 				let h: CGFloat = nil == baseViewSize ? itemViewSize.height : baseViewSize!.height
@@ -313,7 +313,7 @@ public class Menu {
 	private func openLeftAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
 		if let v: Array<UIView> = views {
 			var base: UIView?
-			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+			for var i: Int = 1, l: Int = v.count; i < l; i += 1 {
 				if nil == base {
 					base = v[0]
 				}
@@ -351,7 +351,7 @@ public class Menu {
 	*/
 	public func closeLeftAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
 		if let v: Array<UIView> = views {
-			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+			for var i: Int = 1, l: Int = v.count; i < l; i += 1 {
 				let view: UIView = v[i]
 				UIView.animateWithDuration(Double(i) * duration,
 					delay: delay,
@@ -385,7 +385,7 @@ public class Menu {
 	private func openRightAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
 		if let v: Array<UIView> = views {
 			var base: UIView?
-			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+			for var i: Int = 1, l: Int = v.count; i < l; i += 1 {
 				if nil == base {
 					base = v[0]
 				}
@@ -423,7 +423,7 @@ public class Menu {
 	*/
 	public func closeRightAnimation(duration: NSTimeInterval, delay: NSTimeInterval, usingSpringWithDamping: CGFloat, initialSpringVelocity: CGFloat, options: UIViewAnimationOptions, animations: ((UIView) -> Void)?, completion: ((UIView) -> Void)?) {
 		if let v: Array<UIView> = views {
-			for var i: Int = 1, l: Int = v.count; i < l; ++i {
+			for var i: Int = 1, l: Int = v.count; i < l; i += 1 {
 				let view: UIView = v[i]
 				
 				let w: CGFloat = nil == baseViewSize ? itemViewSize.width : baseViewSize!.width
@@ -450,7 +450,7 @@ public class Menu {
 	private func layoutButtons() {
 		if let v: Array<UIView> = views {
 			let size: CGSize = nil == baseViewSize ? itemViewSize : baseViewSize!
-			for var i: Int = 0, l: Int = v.count; i < l; ++i {
+			for var i: Int = 0, l: Int = v.count; i < l; i += 1 {
 				let view: UIView = v[i]
 				if 0 == i {
 					view.frame.size = size
