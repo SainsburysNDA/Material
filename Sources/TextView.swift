@@ -418,9 +418,15 @@ public class TextView: UITextView, CAAnimationDelegate {
 	running an animation.
 	- Parameter anim: The currently running CAAnimation instance.
 	*/
+    #if swift(>=2.3)
 	public func animationDidStart(anim: CAAnimation) {
 		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
 	}
+    #else
+    public override func animationDidStart(anim: CAAnimation) {
+        (delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
+    }
+    #endif
 	
 	/**
 	A delegation method that is executed when the backing layer stops
@@ -430,6 +436,7 @@ public class TextView: UITextView, CAAnimationDelegate {
 	because it was completed or interrupted. True if completed, false
 	if interrupted.
 	*/
+    #if swift(>=2.3)
 	public func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
@@ -447,6 +454,25 @@ public class TextView: UITextView, CAAnimationDelegate {
 			}
 		}
 	}
+    #else
+    public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+        if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+            if let b: CABasicAnimation = a as? CABasicAnimation {
+                if let v: AnyObject = b.toValue {
+                    if let k: String = b.keyPath {
+                        layer.setValue(v, forKeyPath: k)
+                        layer.removeAnimationForKey(k)
+                    }
+                }
+            }
+            (delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
+        } else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
+            for x in a.animations! {
+                animationDidStop(x, finished: true)
+            }
+        }
+    }
+    #endif
 	
 	/// Reloads necessary components when the view has changed.
 	internal func reloadView() {

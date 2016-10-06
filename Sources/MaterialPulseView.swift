@@ -114,10 +114,17 @@ public class MaterialPulseView : MaterialView {
 	- Parameter touches: A set of UITouch objects.
 	- Parameter event: A UIEvent object.
 	*/
+    #if swift(>=2.3)
 	public override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
 		MaterialAnimation.shrinkAnimation(layer, width: width, duration: MaterialAnimation.pulseDuration(width), pulseLayer: pulseLayer)
 	}
+    #else
+    public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+        super.touchesCancelled(touches, withEvent: event)
+        MaterialAnimation.shrinkAnimation(layer, width: width, duration: MaterialAnimation.pulseDuration(width), pulseLayer: pulseLayer)
+    }
+    #endif
 	
 	/**
 	Prepares the view instance when intialized. When subclassing,

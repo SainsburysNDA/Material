@@ -328,9 +328,15 @@ public class MaterialTableViewCell : UITableViewCell, CAAnimationDelegate {
 	running an animation.
 	- Parameter anim: The currently running CAAnimation instance.
 	*/
+    #if swift(>=2.3)
 	public func animationDidStart(anim: CAAnimation) {
 		(delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
 	}
+    #else
+    public override func animationDidStart(anim: CAAnimation) {
+        (delegate as? MaterialAnimationDelegate)?.materialAnimationDidStart?(anim)
+    }
+    #endif
 	
 	/**
 	A delegation method that is executed when the backing layer stops
@@ -340,6 +346,7 @@ public class MaterialTableViewCell : UITableViewCell, CAAnimationDelegate {
 	because it was completed or interrupted. True if completed, false
 	if interrupted.
 	*/
+    #if swift(>=2.3)
 	public func animationDidStop(anim: CAAnimation, finished flag: Bool) {
 		if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
 			if let b: CABasicAnimation = a as? CABasicAnimation {
@@ -357,6 +364,25 @@ public class MaterialTableViewCell : UITableViewCell, CAAnimationDelegate {
 			}
 		}
 	}
+    #else
+    public override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+        if let a: CAPropertyAnimation = anim as? CAPropertyAnimation {
+            if let b: CABasicAnimation = a as? CABasicAnimation {
+                if let v: AnyObject = b.toValue {
+                    if let k: String = b.keyPath {
+                        layer.setValue(v, forKeyPath: k)
+                        layer.removeAnimationForKey(k)
+                    }
+                }
+            }
+            (delegate as? MaterialAnimationDelegate)?.materialAnimationDidStop?(anim, finished: flag)
+        } else if let a: CAAnimationGroup = anim as? CAAnimationGroup {
+            for x in a.animations! {
+                animationDidStop(x, finished: true)
+            }
+        }
+    }
+    #endif
 	
 	/**
 	Triggers the pulse animation.
@@ -426,10 +452,17 @@ public class MaterialTableViewCell : UITableViewCell, CAAnimationDelegate {
 	- Parameter touches: A set of UITouch objects.
 	- Parameter event: A UIEvent object.
 	*/
+    #if swift(>=2.3)
 	public override func touchesCancelled(touches: Set<UITouch>, withEvent event: UIEvent?) {
 		super.touchesCancelled(touches, withEvent: event)
 		MaterialAnimation.shrinkAnimation(layer, width: width, duration: MaterialAnimation.pulseDuration(width), pulseLayer: pulseLayer)
 	}
+    #else
+    public override func touchesCancelled(touches: Set<UITouch>?, withEvent event: UIEvent?) {
+        super.touchesCancelled(touches, withEvent: event)
+        MaterialAnimation.shrinkAnimation(layer, width: width, duration: MaterialAnimation.pulseDuration(width), pulseLayer: pulseLayer)
+    }
+    #endif
 	
 	/**
 	Prepares the view instance when intialized. When subclassing,
